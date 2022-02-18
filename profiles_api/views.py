@@ -126,3 +126,13 @@ class UserProfileFeedViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user"""
         serializer.save(user_profile=self.request.user)
+
+class TaskViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading and updating a task"""
+    authentication_classes = (TokenAuthentication, )
+    serializer_class = serializers.TaskSerializer
+    queryset = models.TaskItem.objects.all()
+    permission_classes = (permissions.UpdateOwnTask, IsAuthenticated)
+
+    def perform_create(self, serializer):
+        serializer.save(user_profile = self.request.user)
