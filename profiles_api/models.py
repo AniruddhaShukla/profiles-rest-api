@@ -77,6 +77,7 @@ class TaskItem(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     completed = models.BooleanField(default=False)
+    created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         """Return the model as a string"""
